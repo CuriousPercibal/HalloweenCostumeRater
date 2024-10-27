@@ -79,7 +79,7 @@ with gr.Blocks(theme=gr.themes.Soft(), css=custom_css) as demo:
         outputs=[gr.Textbox(label="Result", show_label=True), gr.Dataframe(label='Leaderboard', type='pandas', show_label=True, headers=['rank','name','similarity'])],
         allow_flagging="never",
         description="Upload an image and provide a text prompt to calculate the similarity.",
-        title="Halloween Custome Rater",
+        title="Halloween Costume Rater",
     )
 
 
