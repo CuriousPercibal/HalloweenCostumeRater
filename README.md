@@ -1,13 +1,9 @@
----
-title: Image Text Similarity
-emoji: 📈
-colorFrom: gray
-colorTo: green
-sdk: gradio
-sdk_version: 4.38.1
-app_file: app.py
-pinned: false
-license: mit
----
+# Halloween Costume Rater
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+## Goal
+
+Have the highest similarity score with your outfit and the description
+
+## Screenshot
+
+![Screenshot](./assets/Screenshot.png)
