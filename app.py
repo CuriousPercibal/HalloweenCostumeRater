@@ -3,6 +3,7 @@ from PIL import Image
 import torch
 from transformers import CLIPProcessor, CLIPModel
 import pandas as pd
+from background import bg_image
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Load model and processor
@@ -11,7 +12,23 @@ processor = CLIPProcessor.from_pretrained("laion/CLIP-ViT-H-14-laion2B-s32B-b79K
 model.to(device)
 # preprocessor.to(device)
 
+custom_css = """
+.gradio-container {
+    background-image: url('""" + bg_image + """');
+    background-size: cover;
+    background-position: center;
+}
+
+p, .title, .label {
+    font-weight: bold !important;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8) !important; /* Adjust color and spread as needed */
+    color: white; /* Optional: set a color to enhance visibility */
+}
+"""
+
+
 def calculate_similarity(image, name, text_prompt):
+
     image_path = f'./images/{name}.png' 
     image.save(image_path)
 
@@ -50,7 +67,7 @@ def calculate_similarity(image, name, text_prompt):
     return result_text, result_df
 
 
-with gr.Blocks() as demo:
+with gr.Blocks(theme=gr.themes.Soft(), css=custom_css) as demo:
 # Set up Gradio interface
     iface = gr.Interface(
         fn=calculate_similarity,
@@ -61,8 +78,8 @@ with gr.Blocks() as demo:
         ],
         outputs=[gr.Textbox(label="Result", show_label=True), gr.Dataframe(label='Leaderboard', type='pandas', show_label=True, headers=['rank','name','similarity'])],
         allow_flagging="never",
-        title="OpenClip Similarity Calculator",
-        description="Upload an image and provide a text prompt to calculate the similarity."
+        description="Upload an image and provide a text prompt to calculate the similarity.",
+        title="Halloween Custome Rater",
     )
 
 
